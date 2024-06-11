@@ -4,21 +4,21 @@
     "repo": "update-check-runner",
     "image": "update-check-runner",
     "pulls": "2.85M",
-    "raw_pulls": "2848483",
+    "raw_pulls": "2850673",
     "raw_pulls_all": {
       "2024-06-10": "2846059",
-      "2024-06-11": "2848483"
+      "2024-06-11": "2850673"
     }
   },
   {
     "owner": "violinist-dev",
     "repo": "php-base",
     "image": "php-base",
-    "pulls": "60.8K",
-    "raw_pulls": "60799",
+    "pulls": "61K",
+    "raw_pulls": "61010",
     "raw_pulls_all": {
       "2024-06-10": "60383",
-      "2024-06-11": "60799"
+      "2024-06-11": "61010"
     }
   }
 ]
