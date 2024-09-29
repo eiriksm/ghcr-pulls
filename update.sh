@@ -4,6 +4,10 @@
 # Dependencies: curl, jq
 # Copyright (c) ipitio
 
+numfmt() {
+    awk '{ split("k M B T P E Z Y", v); s=0; while( $1>999.9 ) { $1/=1000; s++ } print int($1*10)/10 v[s] }'
+}
+
 if ! command -v curl &>/dev/null || ! command -v jq &>/dev/null; then
     sudo apt-get update
     sudo apt-get install curl jq -y
@@ -28,7 +32,7 @@ while IFS= read -r line; do
     image=$(echo "$line" | cut -d'/' -f3)
     raw_pulls=$(curl -sSLN https://github.com/"$owner"/"$repo"/pkgs/container/"$image" | grep -Pzo 'Total downloads[^"]*"\d*' | grep -Pzo '\d*$' | tr -d '\0')
     echo "raw pulls: $raw_pulls"
-    pulls=$(curl -sSLN https://github.com/"$owner"/"$repo"/pkgs/container/"$image" | grep -Pzo "(?<=Total downloads</span>\n          <h3 title=\"$raw_pulls\">)[^<]*")
+    pulls=$(numfmt $raw_pulls)
     echo "pulls: $pulls"
     echo $pulls > $owner-$repo.txt
     date=$(date -u +"%Y-%m-%d")
