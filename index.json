@@ -3,8 +3,8 @@
     "owner": "violinist-dev",
     "repo": "update-check-runner",
     "image": "update-check-runner",
-    "pulls": "3.2M",
-    "raw_pulls": "3196177",
+    "pulls": "3.5M",
+    "raw_pulls": "3492748",
     "raw_pulls_all": {
       "2024-06-10": "2846059",
       "2024-06-11": "2850673",
@@ -69,14 +69,15 @@
       "2024-08-09": "3179135",
       "2024-08-10": "3185635",
       "2024-08-11": "3190888",
-      "2024-08-12": "3196177"
+      "2024-08-12": "3196177",
+      "2024-09-29": "3492748"
     }
   },
   {
     "owner": "violinist-dev",
     "repo": "php-base",
     "image": "php-base",
-    "pulls": "0k",
+    "pulls": "86K",
     "raw_pulls": "85149",
     "raw_pulls_all": {
       "2024-06-10": "60383",
