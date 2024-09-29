@@ -25,7 +25,7 @@ while read line; do
     echo "raw pulls: $raw_pulls"
     pulls=$(numfmt --to=si $raw_pulls)
     echo "pulls: $pulls"
-    echo $pulls > $owner-$repo.txt
+    echo "human: $pulls" > $owner-$repo.yml
     date=$(date -u +"%Y-%m-%d")
 
     if [ -n "$pulls" ]; then
