@@ -4,35 +4,26 @@
 # Dependencies: curl, jq
 # Copyright (c) ipitio
 
-numfmt() {
-    awk '{ split("k M B T P E Z Y", v); s=0; while( $1>999.9 ) { $1/=1000; s++ } print int($1*10)/10 v[s] }'
-}
-
 if ! command -v curl &>/dev/null || ! command -v jq &>/dev/null; then
     sudo apt-get update
     sudo apt-get install curl jq -y
 fi
 
 # clean pkg.txt
-awk '{print tolower($0)}' pkg.txt | sort -u | while read -r line; do
-    grep -i "^$line$" pkg.txt
-done >pkg.tmp.txt
-mv pkg.tmp.txt pkg.txt
-[ -z "$(tail -c 1 pkg.txt)" ] || echo >>pkg.txt
-
 # setup templates
 [ -f index.json ] || echo "[]" >index.json
 [ ! -f README.md ] || rm -f README.md
 \cp .README.md README.md
 
 # update the index with new counts if we get a response
-while IFS= read -r line; do
+while read line; do
     owner=$(echo "$line" | cut -d'/' -f1)
     repo=$(echo "$line" | cut -d'/' -f2)
     image=$(echo "$line" | cut -d'/' -f3)
+    echo "$owner/$repo/$image"
     raw_pulls=$(curl -sSLN https://github.com/"$owner"/"$repo"/pkgs/container/"$image" | grep -Pzo 'Total downloads[^"]*"\d*' | grep -Pzo '\d*$' | tr -d '\0')
     echo "raw pulls: $raw_pulls"
-    pulls=$(numfmt $raw_pulls)
+    pulls=$(numfmt --to=si $raw_pulls)
     echo "pulls: $pulls"
     echo $pulls > $owner-$repo.txt
     date=$(date -u +"%Y-%m-%d")
