@@ -26,7 +26,7 @@ while IFS= read -r line; do
     owner=$(echo "$line" | cut -d'/' -f1)
     repo=$(echo "$line" | cut -d'/' -f2)
     image=$(echo "$line" | cut -d'/' -f3)
-    raw_pulls=$(curl -sSLN https://github.com/"$owner"/"$repo"/pkgs/container/"$image" | grep -Pzo 'Total downloads[^"]*"\d*' | grep -Pzo '\d*$')
+    raw_pulls=$(curl -sSLN https://github.com/"$owner"/"$repo"/pkgs/container/"$image" | grep -Pzo 'Total downloads[^"]*"\d*' | grep -Pzo '\d*$' | tr -d '\0')
     pulls=$(curl -sSLN https://github.com/"$owner"/"$repo"/pkgs/container/"$image" | grep -Pzo "(?<=Total downloads</span>\n          <h3 title=\"$raw_pulls\">)[^<]*")
     echo $pulls > $owner-$repo.txt
     date=$(date -u +"%Y-%m-%d")
